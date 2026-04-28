@@ -13,7 +13,7 @@ export default async function handler(req, res) {
 
   try {
     const { text, filters, apiKey } = req.body;
-    const FOLDER_ID = 'b1g74hvcfi6i7ujh6kg6';
+    const FOLDER_ID = b1g74hvcfi6l7ujh6kg6;
 
     const exp = filters?.exp || 'any';
     const skills = filters?.skills || [];
