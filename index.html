@@ -1,9 +1,10 @@
+
 <!DOCTYPE html>
 <html lang="ru">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>HR Анализатор Резюме — Hugging Face</title>
+<title>HR Анализатор Резюме — YandexGPT</title>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Unbounded:wght@300;400;600;700&family=Manrope:wght@300;400;500;600;700&display=swap');
@@ -13,8 +14,8 @@
     --surface: #0d1117;
     --surface2: #161b22;
     --surface3: #1f2937;
-    --accent: #ff9500;
-    --accent2: #ffb340;
+    --accent: #5282ff;
+    --accent2: #7c3aed;
     --green: #3fb950;
     --yellow: #d29922;
     --red: #f85149;
@@ -37,7 +38,7 @@
     position: fixed;
     top: 0; left: 0; right: 0;
     height: 300px;
-    background: linear-gradient(180deg, rgba(255,149,0,0.04) 0%, transparent 100%);
+    background: linear-gradient(180deg, rgba(82,130,255,0.04) 0%, transparent 100%);
     pointer-events: none; z-index: 0;
   }
 
@@ -81,8 +82,8 @@
   .powered {
     display: inline-flex; align-items: center; gap: 6px;
     margin-top: 8px;
-    background: rgba(255,149,0,0.08);
-    border: 1px solid rgba(255,149,0,0.2);
+    background: rgba(82,130,255,0.08);
+    border: 1px solid rgba(82,130,255,0.2);
     border-radius: 4px; padding: 4px 10px;
     font-size: 11px; font-weight: 600;
     color: var(--accent); letter-spacing: 0.06em;
@@ -121,7 +122,7 @@
 
   /* Upload */
   .upload-zone {
-    border: 1px dashed rgba(255,149,0,0.3);
+    border: 1px dashed rgba(82,130,255,0.3);
     border-radius: 8px; padding: 20px 12px;
     text-align: center; cursor: pointer;
     transition: all 0.25s; position: relative; overflow: hidden;
@@ -130,7 +131,7 @@
 
   .upload-zone:hover, .upload-zone.over {
     border-color: var(--accent);
-    background: rgba(255,149,0,0.06);
+    background: rgba(82,130,255,0.06);
   }
 
   .upload-zone input { position: absolute; inset: 0; opacity: 0; cursor: pointer; width: 100%; height: 100%; }
@@ -164,7 +165,7 @@
     outline: none; transition: border-color 0.2s; appearance: none;
   }
 
-  select:focus, textarea:focus { border-color: rgba(255,149,0,0.5); }
+  select:focus, textarea:focus { border-color: rgba(82,130,255,0.5); }
   textarea { resize: vertical; min-height: 60px; line-height: 1.5; }
 
   .chips { display: flex; flex-wrap: wrap; gap: 5px; }
@@ -177,7 +178,7 @@
   }
 
   .chip:hover { border-color: var(--accent); color: var(--accent); }
-  .chip.on { background: rgba(255,149,0,0.12); border-color: var(--accent); color: var(--accent); }
+  .chip.on { background: rgba(82,130,255,0.12); border-color: var(--accent); color: var(--accent); }
 
   /* API Key */
   .api-key-row { display: flex; gap: 6px; }
@@ -187,7 +188,7 @@
     font-family: 'Manrope', sans-serif; font-size: 12px; padding: 8px 10px;
     outline: none; transition: border-color 0.2s;
   }
-  .api-key-row input:focus { border-color: rgba(255,149,0,0.5); }
+  .api-key-row input:focus { border-color: rgba(82,130,255,0.5); }
   .api-note { font-size: 10px; color: var(--muted); margin-top: 6px; line-height: 1.5; }
   .api-note a { color: var(--accent); text-decoration: none; }
 
@@ -201,12 +202,12 @@
 
   .btn-main {
     background: var(--accent); color: #000;
-    box-shadow: 0 0 20px rgba(255,149,0,0.2);
+    box-shadow: 0 0 20px rgba(82,130,255,0.2);
   }
 
   .btn-main:hover:not(:disabled) {
     background: #79c0ff;
-    box-shadow: 0 0 30px rgba(255,149,0,0.4);
+    box-shadow: 0 0 30px rgba(82,130,255,0.4);
     transform: translateY(-1px);
   }
 
@@ -281,7 +282,7 @@
 
   @keyframes cardIn { from{opacity:0;transform:translateY(8px)} to{opacity:1;transform:translateY(0)} }
 
-  .ccard:hover { border-color: rgba(255,149,0,0.25); transform: translateX(2px); }
+  .ccard:hover { border-color: rgba(82,130,255,0.25); transform: translateX(2px); }
 
   .ccard::before {
     content: ''; position: absolute; left: 0; top: 0; bottom: 0;
@@ -354,7 +355,7 @@
     <div class="logo-area">
       <div class="logo"><div class="logo-dot"></div>HR Система · Стоматология</div>
       <h1>Анализатор <em>резюме</em></h1>
-      <div class="powered">Hugging Face — Бесплатно</div>
+      <div class="powered">YandexGPT — Яндекс</div>
     </div>
   </header>
 
@@ -363,13 +364,12 @@
 
       <!-- API Key -->
       <div class="card">
-        <div class="card-label">Hugging Face токен</div>
+        <div class="card-label">YandexGPT API ключ</div>
         <div class="api-key-row">
-          <input type="password" id="apiKey" placeholder="hf_..." />
+          <input type="password" id="apiKey" placeholder="AQVN..." />
         </div>
         <p class="api-note">
-          Получите бесплатный ключ на <a href="https://huggingface.co/settings/tokens" target="_blank">huggingface.co/settings/tokens</a><br>
-          → Access Tokens → New token → Read
+          Ключ уже создан в <a href="https://studio.yandex.cloud" target="_blank">AI Studio</a><br>→ Нажмите «Создать API-ключ» → Бессрочно
         </p>
       </div>
 
@@ -544,27 +544,28 @@ recommendation только: РЕКОМЕНДУЕТСЯ, ВОЗМОЖНО или
   }
 
   async function analyzeOne(file, apiKey, attempt = 1) {
+    const FOLDER_ID = 'b1g74hvcfi6i7ujh6kg6';
     let text = '';
     try { text = await extractPDF(file); } catch(e) { throw new Error('Ошибка чтения PDF'); }
     if (text.length < 30) throw new Error('PDF пуст или защищён');
 
-    const res = await fetch('https://api-inference.huggingface.co/models/mistralai/Mistral-7B-Instruct-v0.3/v1/chat/completions', {
+    const res = await fetch('https://llm.api.cloud.yandex.net/foundationModels/v1/completion', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': `Bearer ${apiKey}`
+        'Authorization': `Api-Key ${apiKey}`,
+        'x-folder-id': FOLDER_ID
       },
       body: JSON.stringify({
-        model: 'mistralai/Mistral-7B-Instruct-v0.3',
-        messages: [{ role: 'user', content: buildPrompt(text) }],
-        max_tokens: 1000,
-        temperature: 0.1
+        modelUri: `gpt://${FOLDER_ID}/yandexgpt/latest`,
+        completionOptions: { stream: false, temperature: 0.1, maxTokens: 1000 },
+        messages: [{ role: 'user', text: buildPrompt(text) }]
       })
     });
 
     if (!res.ok) {
       const e = await res.json().catch(() => ({}));
-      const msg = e.error || `HTTP ${res.status}`;
+      const msg = e.message || e.error?.message || `HTTP ${res.status}`;
       if (res.status === 429 && attempt <= 3) {
         const wait = attempt * 15;
         toast(`⏳ Лимит. Повтор через ${wait} сек...`, '');
@@ -575,7 +576,7 @@ recommendation только: РЕКОМЕНДУЕТСЯ, ВОЗМОЖНО или
     }
 
     const data = await res.json();
-    const raw = data.choices?.[0]?.message?.content || '';
+    const raw = data.result?.alternatives?.[0]?.message?.text || '';
     const clean = raw.replace(/```json|```/g, '').trim();
     const jsonMatch = clean.match(/\{[\s\S]*\}/);
     if (!jsonMatch) throw new Error('Не удалось разобрать ответ');
