@@ -52,7 +52,8 @@ recommendation только: РЕКОМЕНДУЕТСЯ, ВОЗМОЖНО или
 
     if (!response.ok) {
       const err = await response.json();
-      return res.status(response.status).json({ error: err.message || 'YandexGPT error' });
+      const details = err.message || err.error?.message || JSON.stringify(err);
+return res.status(response.status).json({ error: `YandexGPT: ${details} (status: ${response.status})` });
     }
 
     const data = await response.json();
